@@ -3,11 +3,11 @@
 A server-socket chatroom implementation utilizing multi-threading.
 
 ## Getting Started
-1.) Run the Server.java
-2.) Run Client.java
-3.) Enter the port (9090 by default)
-4.) Enter your username
-5.) Enter the access code (9999 by default)
+- 1.) Run the Server.java
+- 2.) Run Client.java
+- 3.) Enter the port (9090 by default)
+- 4.) Enter your username
+- 5.) Enter the access code (9999 by default)
 
 ### Prerequisites
 
