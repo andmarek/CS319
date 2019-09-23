@@ -12,7 +12,6 @@ A server-socket chatroom implementation utilizing multi-threading.
 ### Prerequisites
 
 - Java 8
-```
 
 ### Installing
 - Download the files in any directory.
@@ -22,8 +21,3 @@ A server-socket chatroom implementation utilizing multi-threading.
 * **Andrew Marek**
 
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
