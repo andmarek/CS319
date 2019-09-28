@@ -1,7 +1,39 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    </head>
-    <body>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <form id="test" action="" method="POST">
+        First name<br>
+        <input type="text" name="firstname"><br>
+        Last name<br>
+        <input type="text" name="lastname"><br>
+        Gender<br>
+        <select>
+            <option>Male</option>
+            <option>Female</option>
+        </select> <br>
+        State<br>
+        <select required>
+            <option value=""> None </option>
+            <option value="California"> California </option>
+            <option value="Florida"> Florida </option>
+            <option value="New York"> New York </option>
+            <option value="Texas"> Texas </option>
+            <option value="Hawaii"> Hawaii </option>
+            <option value="Washington"> Washington </option>
+            <option value="Colorado"> Colorado </option>
+            <option value="Virginia"> Virginia </option>
+            <option value="Iowa"> Iowa </option>
+            <option value="Arizona"> Arizona </option>
+        </select>
+        <button onclick="clickMe()">Submit</button>
+    </form>
+
+    <script src="validation1.js"></script>
+</body>
+
 </html>
