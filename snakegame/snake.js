@@ -1,5 +1,7 @@
+// Canvas from HTML
 var canvas = document.getElementById("snakeCanvas");
 var ctx = canvas.getContext("2d");
+
 //var timer = window.;
 var img = new Image();
 
@@ -14,16 +16,10 @@ class Block {
     moveRight() {
         this.xpos+=50;
     }
-    /*
-    static moveLeft() {
-        this.xpos--;
-    }
-    static moveDown() {
-        this.ypos++;
-    }
-    static moveUp() {
-        this.ypos--;
-    }*/
+}
+
+function drawRectangle() {
+    ctx.
 }
 
 /*** */
@@ -63,11 +59,11 @@ function draw() {
   ctx.restore();
 
   ctx.restore();
-  
+
   ctx.beginPath();
   ctx.arc(150, 150, 105, 0, Math.PI * 2, false); // Earth orbit
   ctx.stroke();
- 
+
   ctx.drawImage(sun, 0, 0, 300, 300);
 
   window.requestAnimationFrame(draw);
@@ -160,7 +156,7 @@ function placeBlockWidth() {
 }
 
 function increaseWidth(i) {
-    i++; 
+    i++;
     return i;
 }
 
