@@ -3,113 +3,102 @@ var ctx = canvas.getContext("2d");
 
 let canvasHeight = canvas.height;
 let canvasWidth = canvas.width;
-let blockHeight = canvasHeight / 100;
-let blockWidth = canvasWidth / 100;
 
-let timer = setInterval(() => { drawSnake(); }, 1000);
+let startingX = canvasHeight / 2;
+let startingY = canvasWidth / 2;
 
-func drawSnake() {
-    let startingX = canvasHeight / 2;
-    let startingY = canvasWidth / 2; 
+class Snake {
+    constructor(startingX, startingY) {
+        this.startingX = startingX;
+        this.startingY = startingY;
 
-    for (let i = 0; i < 20; i++) {
-        placeBlock(startingX, startingY);
-        if ()
+        this.blockHeight = canvasHeight / 25;
+        this.blockWidth = canvasWidth / 25;
+
+        this.direction = "up";
     }
 }
 
-func placeBlock(x, y) {
-    ctx.fillRect(x, y, blockHeight, blockWidth);
-}
+snek = new Snake(startingX, startingY);
 
-// Helpers
+init();
 
-function placeBlockWidth() {
-    let xpos = x;
-    console.log(xpos);
-    let ypos = 0;
+function init() {
+    let paused = false;
 
-    if (xpos * 50 >= 750) { //start drawing downard
-        ypos++;
-        placeBlock((xpos - ypos) * 50, ypos * 50, 50, 50);
-    }
-    placeBlock(xpos * 50, ypos, 50, 50);
-    x++;
-}
+    var timer = setInterval(() => {
+        drawSnake(snek);
+    }, 500);
 
-let b1 = new Block(50, 50, 50, 50);
+    document.getElementById('stopButton').onclick = function stopSnake() {
+        if (!paused) {
+            paused = true;
+            console.log("Snake stopped");
+            document.getElementById('stopButton').innerHTML = "Start";
+            clearTimeout(timer);
 
-function draw(y, x) {
-    img.onload = function() {
-            ctx.drawImage(img, x, y);
-    };
-    img.src = 'assets/snaketile.png';
-
-}
-
-
-
-let timer = setInterval(() => {
-    //    placeBlock(b1.xpos, b1.ypos, b1.height, b1.width);
-    draw(b1.xpos, b1.ypos);
-    ctx.clearRect(b1.xpos, b1.ypos, b1.height, b1.width);
-    ctx.save();
-    ctx.translate(50, 0);
-    //    moveBlock(b1);
-    ctx.restore();
-    draw(b1.xpos, b1.ypos);
-    placeBlock(b1.xpos, b1.ypos, b1.height, b1.width);
-
-}, 1000)
-
-function placeBlock(xpos, ypos, height, width) {
-        ctx.strokeRect(xpos, ypos, width, height);
-}
-
-function removeBlock(xpos, ypos, height, width) {
-    ctx.clearRect(xpos, ypos, width, height);
-}
-
-setTimeout(() =>  {clearInterval(timer); }, 10000);
-
-var x = 0;
-var y = 0;
-
-function moveBlock(b) {
-    b.moveRight();
-}
-
-function placeBlockWidth() {
-    let xpos = x;
-    console.log(xpos);
-    let ypos = y;
-
-    if (xpos * 50 >= 750) { //start drawing downard
-        y++;
-        placeBlock((xpos - ypos) * 50, ypos * 50, 50, 50);
-    }
-    placeBlock(xpos * 50, ypos, 50, 50);
-    x++;
-}
-//ctx.rect(100, 100, 100, 100);
-
-//let gameboard = new Array();
-
-
-/*
-function genSnake(len) {
-    let ypos = 0;
-
-    for(let xpos =  0; xpos < len; xpos++) {
-        if (xpos*50 >= 750) { //start drawing downard
-            ypos++;
-            placeBlock((xpos-ypos)*50, ypos*50, 50, 50);
-            continue;
+        } else {
+            paused = false;
+            console.log("snake started");
+            document.getElementById('stopButton').innerHTML = "Stop";
+            timer = setInterval(() => {
+                drawSnake(snek);
+            }, 500);
         }
-            placeBlock(xpos*50, ypos, 50, 50);
     }
 }
 
-genSnake(20);*/
-/// do things here
 
+
+document.getElementById('rightButton').onclick = function goRight() {
+    console.log("clicked right button");
+    if (snek.direction == "right") {
+        snek.direction = "down";
+    } else if (snek.direction == "left") {
+        snek.direction = "up";
+    } else if (snek.direction == "up") {
+        snek.direction = "right";
+    } else if (snek.direction == "down") {
+        snek.direction = "left";
+    }
+}
+
+document.getElementById('leftButton').onclick = function goLeft() {
+    if (snek.direction == "right") {
+        snek.direction = "up";
+    } else if (snek.direction == "left") {
+        snek.direction = "down";
+    } else if (snek.direction == "up") {
+        snek.direction = "left";
+    } else if (snek.direction == "down") {
+        snek.direction = "left";
+    }
+}
+
+function drawSnake(snake) {
+
+    //    if (direction == )
+    console.log("draw snake direction " + snek.direction);
+
+    if (snek.direction == "right") {
+        placeBlock(snake.startingX += snek.blockHeight, snake.startingY, snake);
+        console.log("right" + snake.startingX);
+    }
+
+    if (snek.direction == "left") {
+        placeBlock(snake.startingX -= snek.blockHeight, snake.startingY, snake);
+    }
+
+    if (snek.direction == "down") {
+        placeBlock(snake.startingX, snake.startingY += snek.blockHeight, snake);
+    }
+
+    if (snek.direction == "up") {
+        placeBlock(snake.startingX, snake.startingY -= snek.blockHeight, snake);
+    }
+}
+
+function placeBlock(x, y, snake) {
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(x, y, snake.blockHeight, snake.blockWidth);
+}
