@@ -1,5 +1,9 @@
+//Author: Andrew Marek
 let canvas = document.getElementById("snakeCanvas");
 let ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "#0082b6";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 let xList = [];
 let yList = [];
@@ -11,6 +15,8 @@ let startingX = canvasHeight / 2;
 let startingY = canvasWidth / 2;
 
 let over = false;
+
+let intervalSpeed = 250;
 
 init();
 
@@ -31,13 +37,13 @@ function init() {
     let paused = false;
 
     let timer = setInterval(() => {
+        drawSnake(snek);
         if (over) {
             alert("Game over. Press 'refresh' to play again");
             paused = true;
             clearInterval(timer);
         }
-        drawSnake(snek);
-    }, 500);
+    }, intervalSpeed);
 
     document.getElementById('refreshButton').onclick = function refreshPage() {
         window.location.reload();
@@ -55,12 +61,11 @@ function init() {
             document.getElementById('stopButton').innerHTML = "Stop";
             timer = setInterval(() => {
                 drawSnake(snek);
-            }, 500);
+            }, intervalSpeed);
         }
     }
 }
 document.getElementById('rightButton').onclick = function goRight() {
-    console.log("clicked right button");
     if (snek.direction == "right") {
         snek.direction = "down";
     } else if (snek.direction == "left") {
@@ -82,18 +87,10 @@ document.getElementById('leftButton').onclick = function goLeft() {
         snek.direction = "right";
     }
 }
-
 function drawSnake(snake) {
-
-    //    if (direction == )
-    console.log("draw snake direction " + snek.direction);
-    if (snek.startingX == canvasWidth || snek.startingX == 0 ||
-        snek.startingY == canvasHeight || snek.startingY == 0) {
-        over = true;
-    }
+    
     if (snek.direction == "right") {
         placeBlock(snake.startingX += snek.blockHeight, snake.startingY, snake);
-        console.log("right" + snake.startingX);
     }
     if (snek.direction == "left") {
         placeBlock(snake.startingX -= snek.blockHeight, snake.startingY, snake);
@@ -105,7 +102,6 @@ function drawSnake(snake) {
         placeBlock(snake.startingX, snake.startingY -= snek.blockHeight, snake);
     }
 }
-
 function placeBlock(x, y, snake) {
     for (let i = 0; i < xList.length; i++) {
         if (xList[i] === x && yList[i] === y) {
@@ -114,8 +110,10 @@ function placeBlock(x, y, snake) {
     }
     xList.push(x);
     yList.push(y);
-
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(x, y, snake.blockHeight, snake.blockWidth);
-    
+    if (x > canvasWidth || x < 0 ||
+        y > canvasHeight  || y < 0) {
+        over = true;
+    }   
 }
